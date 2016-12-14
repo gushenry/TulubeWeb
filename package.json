@@ -1,0 +1,38 @@
+{
+  "name": "tulubeapi",
+  "version": "1.0.0",
+  "description": "API for Tulube",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmsormond/TulubeAPI.git"
+  },
+  "author": "James Ormond and Gus Henry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmsormond/TulubeAPI/issues"
+  },
+  "homepage": "https://github.com/jmsormond/TulubeAPI#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "jquery": "^3.1.1",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.7.0",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "socket.io": "^1.5.1"
+  }
+}

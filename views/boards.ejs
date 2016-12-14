@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="/javascript/jquery.min.js"></script>
+    <script src="/javascript/bootstrap.min.js"></script>
+
+    <script src="/javascript/boards.js" defer></script>
+
+    <script type="text/javascript">
+      var username = "<%= user.local.email %>";
+      var boards = <%- JSON.stringify(boards) %>;
+      console.log(boards);
+    </script>
+
+    <link rel="stylesheet" href="/style/bootstrap.min.css">
+
+    <meta name="viewport" content="user-scalable=no,initial-scale=1.0,maximum-scale=1.0" />
+    <title>Tulube - Boards</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>
+                  Title
+                </th>
+                <th>
+                  Creator
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="createNewBoard">
+                <th scope="row">
+                  Add New
+                </th>
+                <td>
+                  +
+                </td>
+              </tr>
+
+              <% boards.forEach(function(board) { %>
+                <tr class='clickable-row' data-href='/boards/<%= board.id %>'>
+                  <th scope="row">
+                    <%= board.title %>
+                  </th>
+                  <td>
+                    <%= board.creator %>
+                  </td>
+                </tr>
+              <% }) %>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="createNewBoardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Create New Board</h4>
+            </div>
+            <div class="modal-body">
+              
+              <form action="/new-board" method="post">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Title</label>
+                  <input type="text" name="title" class="form-control" placeholder="Title">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              
+                <button type="submit" class="btn btn-default">Create</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>

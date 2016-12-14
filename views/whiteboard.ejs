@@ -1,0 +1,138 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="/javascript/jquery.min.js"></script>
+    <script src="/javascript/bootstrap.min.js"></script>
+    <script src="/javascript/jscolor.min.js"></script>
+
+    <script src="/javascript/session.js" defer></script>
+    <script src="/javascript/object-id.js" defer></script>
+    <script src="/javascript/socket.js" defer></script>
+    <script src="/javascript/canvas-handler.js" defer></script>
+    <script src="/javascript/board.js" defer></script>
+    <script src="/javascript/line.js" defer></script>
+    <script src="/javascript/segment.js" defer></script>
+    <script src="/javascript/whiteboard.js" defer></script>
+
+    <script type="text/javascript">
+      var username = "<%= user.local.email %>";
+      var board = <%- JSON.stringify(board) %>;
+      var lines = <%- JSON.stringify(lines) %>;
+    </script>
+
+    <link rel="stylesheet" href="/style/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/style/whiteboard.css">
+
+    <meta name="viewport" content="user-scalable=no,initial-scale=1.0,maximum-scale=1.0" />
+    <title>Tulube - Whiteboard</title>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Tulube</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="/boards">Boards <span class="sr-only">(current)</span></a></li>
+            <li><button type="button" class="btn btn-default navbar-btn" id="clear">clear</button></li>
+
+            <li><button type="button" class="btn btn-default navbar-btn jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">Choose Color</button></li>
+
+            <li><button id="shareToTV" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></button></li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><button id="share" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-plus" aria-hidden="true"></button></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= user.local.email %> <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/logout">Logout</a></li>
+                <!-- <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li> -->
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- Button trigger modal -->
+    
+    <br />
+
+    <div id="canvasDiv">
+      <canvas id="main" width="900" height="600"></canvas>
+    </div>
+
+    <!-- Modal -->
+      <div class="modal fade" id="tvCodeModal" tabindex="-1" role="dialog" aria-labelledby="tvCodeModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="tvCodeModalLabel">Enter Apple TV Code</h4>
+            </div>
+            <div class="modal-body">
+              
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Enter the six-digit code on your Apple TV screen to project the current whiteboard onto the TV.</label>
+                  <br />
+                  <br />
+                  <input type="text" id="codeInput" name="title" class="form-control" placeholder="Code">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              
+                <button id="shareToTVButton" class="btn btn-default">Share</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="shareModalLabel">Add Collaborator</h4>
+            </div>
+            <div class="modal-body">
+              
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Enter the email address of the person you want to add as a collaborator.</label>
+                  <br />
+                  <br />
+                  <input type="text" id="shareInput" name="title" class="form-control" placeholder="Email">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              
+                <button id="shareButton" class="btn btn-default">Share</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </body>
+</html>
